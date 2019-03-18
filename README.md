@@ -104,6 +104,11 @@ DataStream<Tuple2<Long,Long>> tuples = rides.map(new MapFunction<TaxiRide, Tuple
 KeyedStream<Tuple2<Long, Long>, Tuple> keyByDriverId = tuples.keyBy(0); // 基于司机id进行数据划分
 DataStream<Tuple2<Long, Long>> rideCounts = keyByDriverId.sum(1); // 累计每个司机的里程数
 
+RedisConfig redisConfig = new RedisConfig();
+redisConfig.setHost(params.get("output-redis","127.0.0.1"));
+redisConfig.setPort(6379);
+redisConfig.setPassword(null);
+
 // 直接使用匿名类实现redis sink
 rideCounts.addSink(new RichSinkFunction<Tuple2<Long, Long>>() {  // 定义sink
     private transient JedisPool jedisPool;
@@ -112,9 +117,6 @@ rideCounts.addSink(new RichSinkFunction<Tuple2<Long, Long>>() {  // 定义sink
         try {
             super.open(parameters);
             JedisPoolConfig config = new JedisPoolConfig();
-            config.setHost(params.get("output-redis","127.0.0.1"));
-            config.setPort(6379);
-            config.setPassword(null);
             config.setMaxIdle(redisConfig.getMaxIdle());
             config.setMinIdle(redisConfig.getMinIdle());
             config.setMaxTotal(redisConfig.getMaxTotal());
