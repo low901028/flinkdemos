@@ -1,10 +1,10 @@
 # flink简单demo应用
 ### 一.docker安装kafka
-1.下载docker镜像(如果直接下载docker镜像慢 可通过指定国内镜像仓库进行操作)
+#### 1.下载docker镜像(如果直接下载docker镜像慢 可通过指定国内镜像仓库进行操作)
 docker pull wurstmeister/zookeeper
 docker pull wurstmeister/kafka
 
-2.分别运行docker镜像: zookeeper和kafka
+#### 2.分别运行docker镜像: zookeeper和kafka
 2.1启动zookeeper
 docker run -d --name zookeeper --publish 2181:2181 \
 --volume /etc/localtime:/etc/localtime \
@@ -19,7 +19,7 @@ docker run -d --name kafka --publish 9092:9092 \
 --volume /etc/localtime:/etc/localtime \
 wurstmeister/kafka
 
-3.验证docker对应的容器是否启动成功
+#### 3.验证docker对应的容器是否启动成功
 3.1 运行 docker ps，找到kafka的 CONTAINER ID，
 3.2 运行 docker exec -it ${CONTAINER ID} /bin/bash，进入kafka容器。
 3.3 进入kafka默认目录 /opt/kafka_2.11-0.10.1.0，
@@ -35,20 +35,20 @@ wurstmeister/kafka
          bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning，可以接收到生产者发送的消息。
          
 ### 二.docker安装redis
-1.下载redis镜像
+#### 1.下载redis镜像
 docker pull registry.docker-cn.com/library/redis
-2.启动redis镜像
+#### 2.启动redis镜像
 docker run -d -p 6379:6379 --name myredis registry.docker-cn.com/library/redis
-3.查看docker ps  查看运行中的容器
-4.连接、查看容器,使用redis镜像执行redis-cli命令连接到刚启动的容器
+#### 3.查看docker ps  查看运行中的容器
+#### 4.连接、查看容器,使用redis镜像执行redis-cli命令连接到刚启动的容器
 sudo docker exec -it 6fb1ba029b41 redis-cli
 出现类似: 127.0.0.1:6379> 
 
 ### 三.测试数据集
-3.1 数据集地址如下:
+#### 3.1 数据集地址如下:
 wget http://training.ververica.com/trainingData/nycTaxiRides.gz
 wget http://training.ververica.com/trainingData/nycTaxiFares.gz
-3.2 数据集字段说明
+#### 3.2 数据集字段说明
 =============================Taxi Ride数据集相关字段说明=============================
 rideId         : Long      // a unique id for each ride 一次行程
 taxiId         : Long      // a unique id for each taxi 本次行程使用的出租车
