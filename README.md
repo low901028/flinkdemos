@@ -23,16 +23,16 @@ wurstmeister/kafka
 3.1 运行 docker ps，找到kafka的 CONTAINER ID，
 3.2 运行 docker exec -it ${CONTAINER ID} /bin/bash，进入kafka容器。
 3.3 进入kafka默认目录 /opt/kafka_2.11-0.10.1.0，
-    运行 bin/kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 1 --topic test，
+运行 bin/kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 1 --topic test，
     创建一个 topic 名称为 test。
 
-    运行 bin/kafka-topics.sh --list --zookeeper zookeeper:2181 查看当前的 topic 列表。
+运行 bin/kafka-topics.sh --list --zookeeper zookeeper:2181 查看当前的 topic 列表。
 
-    运行一个消息生产者，指定 topic 为刚刚创建的 test ， 
-           bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test，输入一些测试消息。
+运行一个消息生产者，指定 topic 为刚刚创建的 test ， 
+     bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test，输入一些测试消息。
 
-    运行一个消息消费者，同样指定 topic 为 test， 
-         bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning，可以接收到生产者发送的消息。
+运行一个消息消费者，同样指定 topic 为 test， 
+    bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning，可以接收到生产者发送的消息。
          
 ### 二.docker安装redis
 #### 1.下载redis镜像
@@ -47,8 +47,10 @@ sudo docker exec -it 6fb1ba029b41 redis-cli
 ### 三.测试数据集
 #### 3.1 数据集地址如下:
 wget http://training.ververica.com/trainingData/nycTaxiRides.gz
+
 wget http://training.ververica.com/trainingData/nycTaxiFares.gz
 #### 3.2 数据集字段说明
+```
 =============================Taxi Ride数据集相关字段说明=============================
 rideId         : Long      // a unique id for each ride 一次行程
 taxiId         : Long      // a unique id for each taxi 本次行程使用的出租车
@@ -63,6 +65,8 @@ endLon         : Float     // the longitude of the ride end location      行程
 endLat         : Float     // the latitude of the ride end location	  行程结束维度
 passengerCnt   : Short     // number of passengers on the ride		  本次行程乘客数
 
+````
+```
 =============================TaxiFare数据集相关字段说明=============================
 rideId         : Long      // a unique id for each ride     一次行程
 taxiId         : Long      // a unique id for each taxi     本次行程的出租车
@@ -72,8 +76,9 @@ paymentType    : String    // CSH or CRD                    行程付费方式(C
 tip            : Float     // tip for this ride 	    本次行程的里程
 tolls          : Float     // tolls for this ride           本次行程缴费
 totalFare      : Float     // total fare collected          本次行程总费用
+```
 
-###四.完整实例
+### 四.完整实例
 ```
  // 读取配置参数: 文件路径/最大延迟时间/
         final ParameterTool params = ParameterTool.fromArgs(args);
