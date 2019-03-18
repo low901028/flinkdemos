@@ -141,7 +141,7 @@ rideCounts.addSink(new RichSinkFunction<Tuple2<Long, Long>>() {  // 定义sink
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
-            jedis.set(val.f0.toString(),val.f1.toString());
+            jedis.set("taxi:ride:" + val.f0,val.f1.toString());
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
