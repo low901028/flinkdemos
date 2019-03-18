@@ -83,9 +83,6 @@ public class TaxiRideCount {
                 try {
                     super.open(parameters);
                     JedisPoolConfig config = new JedisPoolConfig();
-                    config.setHost(params.get("output-redis","127.0.0.1"));
-                    config.setPort(6379);
-                    config.setPassword(null);
                     config.setMaxIdle(redisConfig.getMaxIdle());
                     config.setMinIdle(redisConfig.getMinIdle());
                     config.setMaxTotal(redisConfig.getMaxTotal());
@@ -110,7 +107,7 @@ public class TaxiRideCount {
                 Jedis jedis = null;
                 try {
                     jedis = jedisPool.getResource();
-                    jedis.set(val.f0.toString(),val.f1.toString());
+                    jedis.set("taxi:ride:" + val.f0,val.f1.toString());
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
