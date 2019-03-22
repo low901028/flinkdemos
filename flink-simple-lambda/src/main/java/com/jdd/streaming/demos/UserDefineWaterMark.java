@@ -68,6 +68,8 @@ public class UserDefineWaterMark {
         .process(new ProcessWindowFunction<Tuple2<Tuple2<String, String>, Long>, Object, Tuple, TimeWindow>() {
             @Override
             public void process(Tuple tuple, Context context, Iterable<Tuple2<Tuple2<String, String>, Long>> iterable, Collector<Object> collector) throws Exception {
+                // <key, Iterable<>>
+
                 long count = 0;
                 Tuple2<String,String> tuple2 = null;
                 for (Tuple2<Tuple2<String, String>, Long> in : iterable){
