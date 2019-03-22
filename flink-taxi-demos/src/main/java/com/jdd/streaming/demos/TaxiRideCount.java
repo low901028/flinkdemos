@@ -65,17 +65,17 @@ public class TaxiRideCount {
         redisConfig.setHost(params.get("output-redis","127.0.0.1"));
         redisConfig.setPort(6379);
         redisConfig.setPassword(null);
-        RedisSink redisSink = new RedisSink(redisConfig);
+        //RedisSink redisSink = new RedisSink(redisConfig);
 
-        rideCounts.map(new MapFunction<Tuple2<Long, Long>, RedisCommand>() { // 落地redis
-            @Override
-            public RedisCommand map(Tuple2<Long, Long> in) throws Exception {
-                return new RedisPushCommand("taxi:ride:" + in.f0, Long.toString(in.f1));
-                //return new RedisPushCommand("taxi:ride:" + in.f0, new String[]{Long.toString(in.f1)});
-            }
-        }).addSink(redisSink);
+//        rideCounts.map(new MapFunction<Tuple2<Long, Long>, RedisCommand>() { // 落地redis
+//            @Override
+//            public RedisCommand map(Tuple2<Long, Long> in) throws Exception {
+//                return new RedisPushCommand("taxi:ride:" + in.f0, Long.toString(in.f1));
+//                //return new RedisPushCommand("taxi:ride:" + in.f0, new String[]{Long.toString(in.f1)});
+//            }
+//        }).addSink(redisSink);
 
-        /** // 直接使用匿名类实现redis sink
+        // 直接使用匿名类实现redis sink
         rideCounts.addSink(new RichSinkFunction<Tuple2<Long, Long>>() {  // 定义sink
             private transient JedisPool jedisPool;
             @Override
@@ -83,9 +83,6 @@ public class TaxiRideCount {
                 try {
                     super.open(parameters);
                     JedisPoolConfig config = new JedisPoolConfig();
-                    config.setHost(params.get("output-redis","127.0.0.1"));
-                    config.setPort(6379);
-                    config.setPassword(null);
                     config.setMaxIdle(redisConfig.getMaxIdle());
                     config.setMinIdle(redisConfig.getMinIdle());
                     config.setMaxTotal(redisConfig.getMaxTotal());
@@ -110,7 +107,7 @@ public class TaxiRideCount {
                 Jedis jedis = null;
                 try {
                     jedis = jedisPool.getResource();
-                    jedis.set(val.f0.toString(),val.f1.toString());
+                    jedis.set("taxi:ride:" + val.f0,val.f1.toString());
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
@@ -126,7 +123,6 @@ public class TaxiRideCount {
                 }
             }
         });
-        */
         //rideCounts.print();
 
         JobExecutionResult result = env.execute("Ride Count By DriverID");

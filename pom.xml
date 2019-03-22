@@ -18,6 +18,8 @@
         <module>flink-kafka-redis</module>
         <module>flink-userdefine-pojo</module>
         <module>flink-taxi-demos</module>
+        <module>flink-wikipedia-demo</module>
+        <module>flink-simple-lambda</module>
     </modules>
 
     <properties>
