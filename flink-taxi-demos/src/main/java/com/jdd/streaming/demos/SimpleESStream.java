@@ -61,7 +61,7 @@ public class SimpleESStream {
                     new MapFunction<TaxiRide, Tuple2<Integer, Short>>() {
                         @Override
                         public Tuple2<Integer, Short> map(TaxiRide r) throws Exception {
-                            return new Tuple2<Integer, Short>(GeoUtils.mapToGridCell(r.startLon, r.startLat), r.passengerCnt);
+                            return new Tuple2<Integer, Short>(GeoUtils.mapToGridCell(r.startLon, r.startLat), (short)r.passengerCnt);
                         }
                     }
                 );

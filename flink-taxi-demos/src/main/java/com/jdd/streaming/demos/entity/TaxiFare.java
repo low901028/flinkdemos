@@ -41,6 +41,7 @@ public class TaxiFare implements Serializable {
     public float tolls;
     public float totalFare;
 
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(rideId).append(",");

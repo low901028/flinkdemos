@@ -50,10 +50,11 @@ public class TaxiRide implements Comparable<TaxiRide>, Serializable {
     public float startLat;
     public float endLon;
     public float endLat;
-    public short passengerCnt;
+    public int passengerCnt;
     public long taxiId;
     public long driverId;
 
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(rideId).append(",");
@@ -115,6 +116,7 @@ public class TaxiRide implements Comparable<TaxiRide>, Serializable {
 
     // sort by timestamp,
     // putting START events before END events if they have the same timestamp
+    @Override
     public int compareTo(TaxiRide other) {
         if (other == null) {
             return 1;
