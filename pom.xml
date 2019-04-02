@@ -13,13 +13,14 @@
     <modules>
         <module>flink-socket</module>
         <module>flink-files</module>
-        <module>flink-wikis</module>
         <module>flink-kafka</module>
         <module>flink-kafka-redis</module>
         <module>flink-userdefine-pojo</module>
         <module>flink-taxi-demos</module>
         <module>flink-wikipedia-demo</module>
         <module>flink-simple-lambda</module>
+        <module>flink-sql-demos</module>
+        <module>flink-state-demo</module>
     </modules>
 
     <properties>
