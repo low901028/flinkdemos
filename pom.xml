@@ -21,6 +21,7 @@
         <module>flink-simple-lambda</module>
         <module>flink-sql-demos</module>
         <module>flink-state-demo</module>
+        <module>flink-rocketmq</module>
     </modules>
 
     <properties>
@@ -31,6 +32,8 @@
         <log4j.version>1.2.17</log4j.version>
         <jedis.version>2.9.0</jedis.version>
         <lombok.version>1.16.20</lombok.version>
+        <commons-lang.version>2.5</commons-lang.version>
+        <rocketmq.version>4.4.0</rocketmq.version>
     </properties>
 
     <dependencyManagement>
@@ -81,6 +84,23 @@
             </dependency>
 
             <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-runtime_2.11</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-queryable-state</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-queryable-state-client-java_2.11</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
@@ -89,6 +109,42 @@
                 <groupId>redis.clients</groupId>
                 <artifactId>jedis</artifactId>
                 <version>${jedis.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-client</artifactId>
+                <version>${rocketmq.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-common</artifactId>
+                <version>${rocketmq.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>io.netty</groupId>
+                        <artifactId>netty-tcnative</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-namesrv</artifactId>
+                <version>${rocketmq.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-broker</artifactId>
+                <version>${rocketmq.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>${commons-lang.version}</version>
             </dependency>
 
             <dependency>
